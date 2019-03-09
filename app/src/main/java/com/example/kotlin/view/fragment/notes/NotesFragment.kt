@@ -1,4 +1,4 @@
-package com.example.kotlin.view.fragment
+package com.example.kotlin.view.fragment.notes
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -15,10 +15,10 @@ import kotlinx.android.synthetic.main.layout_notes_fragment.*
 
 class NotesFragment : BaseFragment() {
     companion object {
-        fun newInstance() = NotesFragment()
+        fun newInstance() = EditorFragment()
     }
 
-    private lateinit var viewModel: NotesViewModel
+    private lateinit var viewModel: EditroViewModel
     private lateinit var adapter: NotesAdapter
 
     override fun onCreateView(
@@ -32,11 +32,11 @@ class NotesFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         (activity as MainActivity).setToolbar(toolbar)
 
-        viewModel = ViewModelProviders.of(this).get(NotesViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(EditroViewModel::class.java)
         adapter = NotesAdapter()
         rv_notes.adapter = adapter
 
-        viewModel.viewState().observe(this, Observer<NotesViewState> { t ->
+        viewModel.viewState().observe(this, Observer<EditorViewState> { t ->
             t?.let { adapter.notes = it.notes }
         })
     }

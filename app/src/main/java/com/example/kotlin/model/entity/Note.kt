@@ -1,4 +1,22 @@
 package com.example.kotlin.model.entity
 
-class Note(val title: String, val content: String) {
+import java.util.*
+
+class Note(
+    val title: String,
+    val content: String,
+    val color: NoteColor = NoteColor.ORANGE,
+    val lastChanged: Date = Date()
+) {
+}
+
+enum class NoteColor {
+    BROWN,
+    ORANGE,
+    GREEN,
+    CYAN,
+    PURPLE,
+    PINK,
+    LIME,
+    RED
 }

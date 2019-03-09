@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="12dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="5dp"
     app:cardElevation="4dp">
 
     <RelativeLayout
+        android:id="@+id/rl_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_note_background"
+        android:background="@drawable/shape_note_orange"
         android:paddingStart="4dp"
         android:paddingEnd="4dp">
 
