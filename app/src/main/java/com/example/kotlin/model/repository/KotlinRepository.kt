@@ -2,44 +2,78 @@ package com.example.kotlin.model.repository
 
 import com.example.kotlin.model.entity.Note
 import com.example.kotlin.model.entity.NoteColor
+import java.util.*
 
 object KotlinRepository {
     val notes: List<Note> = listOf(
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык"
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык"
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык", NoteColor.BROWN
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.BROWN
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык", NoteColor.CYAN
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.CYAN
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык", NoteColor.GREEN
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.GREEN
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык", NoteColor.PINK
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.PINK
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык", NoteColor.LIME
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.LIME
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык", NoteColor.PURPLE
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.PURPLE
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык", NoteColor.RED
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.RED
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык"
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык"
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык"
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык"
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык"
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.LIME
         ),
         Note(
-            "Моя первая заметка", "Kotlin очень краткий, но при этом выразительный язык"
+            id = UUID.randomUUID().toString(),
+            title = "Моя первая заметка",
+            content = "Kotlin очень краткий, но при этом выразительный язык",
+            color = NoteColor.LIME
         )
     )
 }
