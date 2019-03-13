@@ -13,7 +13,7 @@ import com.example.kotlin.view.adapter.NotesAdapter
 import com.example.kotlin.view.adapter.NotesViewHolder
 import com.example.kotlin.view.base.BaseFragment
 import com.example.kotlin.view.fragment.editor.EditorFragment
-import com.example.kotlin.view.fragment.notes.NotesFragmentDirections.actionNotesToAddNote
+import com.example.kotlin.view.fragment.notes.NotesFragmentDirections.actionNotesToEditor
 import kotlinx.android.synthetic.main.layout_notes_fragment.*
 
 class NotesFragment : BaseFragment() {
@@ -21,7 +21,7 @@ class NotesFragment : BaseFragment() {
         fun newInstance() = EditorFragment()
     }
 
-    private lateinit var viewModel: EditroViewModel
+    private lateinit var viewModel: NotesViewModel
     private lateinit var adapter: NotesAdapter
 
     override fun onCreateView(
@@ -33,27 +33,22 @@ class NotesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fab.setOnClickListener { findNavController(it).navigate(actionNotesToAddNote()) }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         getAppCompatActivity().setSupportActionBar(toolbar)
 
+        fab.setOnClickListener { findNavController(view).navigate(actionNotesToEditor()) }
 
-        viewModel = ViewModelProviders.of(this).get(EditroViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(NotesViewModel::class.java)
         adapter = NotesAdapter(object : NotesViewHolder.OnItemClickListener {
             override fun onItemClick(note: Note) {
-                val actionEdit = NotesFragmentDirections.actionNotesToEditor(note.id)
-                view?.let {
-                    findNavController(it).navigate(actionEdit)
-                }
+                val actionEdit = actionNotesToEditor()
+                actionEdit.noteId = note.id
+                findNavController(view).navigate(actionEdit)
             }
         })
 
         rv_notes.adapter = adapter
 
-        viewModel.viewState().observe(this, Observer<EditorViewState> { t ->
+        viewModel.viewState().observe(this, Observer<NotesViewState> { t ->
             t?.let { adapter.notes = it.notes }
         })
     }

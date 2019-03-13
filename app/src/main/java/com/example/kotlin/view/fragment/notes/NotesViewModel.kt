@@ -5,12 +5,16 @@ import android.arch.lifecycle.MutableLiveData
 import com.example.kotlin.model.repository.KotlinRepository
 import com.example.kotlin.view.base.BaseViewModel
 
-class NotesViewModel : BaseViewModel() {
-    private val viewStateLiveData: MutableLiveData<EditorViewState> = MutableLiveData()
+class NotesViewModel(private val repository: KotlinRepository = KotlinRepository) : BaseViewModel() {
+    private val viewStateLiveData: MutableLiveData<NotesViewState> = MutableLiveData()
 
     init {
-        viewStateLiveData.value = EditorViewState(KotlinRepository.notes)
+        repository.getNotes().observeForever {
+            viewStateLiveData.value =
+                    viewStateLiveData.value?.copy(notes = it!!) ?: NotesViewState(it!!)
+        }
+
     }
 
-    fun viewState(): LiveData<EditorViewState> = viewStateLiveData
+    fun viewState(): LiveData<NotesViewState> = viewStateLiveData
 }
