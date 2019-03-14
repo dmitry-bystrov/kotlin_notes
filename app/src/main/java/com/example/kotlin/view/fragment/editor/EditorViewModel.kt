@@ -8,13 +8,12 @@ import com.example.kotlin.view.base.BaseViewModel
 
 class EditorViewModel(private val repository: KotlinRepository = KotlinRepository) : BaseViewModel() {
     private val currentNote = MutableLiveData<Note>()
-    private var pendingNote: Note? = null
 
     val observableCurrentNote: LiveData<Note>
         get() = currentNote
 
     fun saveChanges(note: Note) {
-        pendingNote = note
+        currentNote.value = note
     }
 
     fun initNote(id: String) {
@@ -22,8 +21,6 @@ class EditorViewModel(private val repository: KotlinRepository = KotlinRepositor
     }
 
     override fun onCleared() {
-        if (pendingNote != null) {
-            repository.saveNote(pendingNote!!)
-        }
+        currentNote.value?.let { repository.saveNote(it) }
     }
 }

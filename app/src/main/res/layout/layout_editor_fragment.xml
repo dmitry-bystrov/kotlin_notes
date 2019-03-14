@@ -13,10 +13,17 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            android:layout_height="?actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/notes_fragment_title" />
+
+        <View
+            android:id="@+id/toolbar_underline"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -42,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
+                android:fontFamily="@font/montserrat_semibold"
                 android:paddingTop="4dp"
                 android:textColor="@android:color/black" />
         </android.support.design.widget.TextInputLayout>
@@ -53,8 +61,8 @@
             android:layout_below="@id/il_title"
             android:layout_marginTop="16dp"
             android:background="@null"
-            android:textColorHint="@color/hintColor"
-            android:hint="@string/note_content_hint" />
+            android:hint="@string/note_content_hint"
+            android:textColorHint="@color/hintColor" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

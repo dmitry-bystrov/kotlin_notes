@@ -1,6 +1,5 @@
 package com.example.kotlin.view.fragment.editor
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
@@ -53,11 +52,11 @@ class EditorFragment : BaseFragment() {
             viewModel.initNote(safeArgs.noteId)
         }
 
-        viewModel.observableCurrentNote.observe(this, Observer { currentNote ->
-            note = currentNote ?: Note()
-            setToolbar(currentNote)
+        viewModel.observableCurrentNote.value.let {
+            note = it ?: Note()
+            setToolbar(it)
             updateViewState()
-        })
+        }
     }
 
     private fun setToolbar(note: Note?) {
@@ -90,7 +89,7 @@ class EditorFragment : BaseFragment() {
             NoteColor.RED -> R.color.red
         }
 
-        toolbar.setBackgroundColor(ContextCompat.getColor(getAppCompatActivity(), color))
+        toolbar_underline.setBackgroundColor(ContextCompat.getColor(getAppCompatActivity(), color))
         et_title.addTextChangedListener(textChangeWatcher)
         et_content.addTextChangedListener(textChangeWatcher)
     }

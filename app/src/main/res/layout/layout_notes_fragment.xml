@@ -14,10 +14,15 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            style="@style/ToolbarStyle"
+            android:layout_height="?actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="@string/notes_fragment_title" />
+
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
 
     </android.support.design.widget.AppBarLayout>
 

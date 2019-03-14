@@ -4,6 +4,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textViewStyle">@style/AppTextStyle</item>
+    </style>
+
+    <style name="AppTextStyle">
+        <item name="android:textAppearance">@style/AppTextAppearance</item>
+    </style>
+
+    <style name="AppTextAppearance">
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="AppTheme.Splash">
@@ -13,6 +23,17 @@
     <style name="HintTextStyle">
         <item name="android:textColor">@color/hintColor</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ToolbarStyle">
+        <item name="android:background">@color/toolbarColor</item>
+        <item name="android:theme">@style/ToolbarTheme</item>
+    </style>
+
+    <style name="ToolbarTheme">
+        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:textColorSecondary">@color/textColor</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
 </resources>
