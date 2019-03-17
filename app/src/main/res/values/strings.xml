@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="note_title_hint">Заголовок</string>
+    <string name="note_content_hint">Текст заметки</string>
+    <string name="new_note_title">Новая заметка</string>
+    <string name="notes_fragment_title">Мои заметки</string>
 </resources>

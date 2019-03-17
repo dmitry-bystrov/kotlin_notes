@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import com.example.kotlin.R
 import com.example.kotlin.model.entity.Note
 
-class NotesAdapter : RecyclerView.Adapter<NotesViewHolder>() {
+class NotesAdapter(private val clickListener: NotesViewHolder.OnItemClickListener) :
+    RecyclerView.Adapter<NotesViewHolder>() {
 
     var notes: List<Note> = listOf()
         set(value) {
@@ -17,7 +18,7 @@ class NotesAdapter : RecyclerView.Adapter<NotesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_note, parent, false)
-        return NotesViewHolder(view)
+        return NotesViewHolder(view, clickListener)
     }
 
     override fun getItemCount() = notes.size

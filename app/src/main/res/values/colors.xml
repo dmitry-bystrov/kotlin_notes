@@ -5,4 +5,16 @@
     <color name="colorAccent">#ff5e3a</color>
     <color name="colorGradientStart">#e9b54b</color>
     <color name="colorGradientEnd">#f7a600</color>
+    <color name="toolbarColor">#fcfcfc</color>
+    <color name="textColor">#35343f</color>
+    <color name="hintColor">#65646f</color>
+
+    <color name="brown">#795548</color>
+    <color name="orange">#ff9800</color>
+    <color name="green">#8bc34a</color>
+    <color name="cyan">#00bcd4</color>
+    <color name="purple">#7e57c2</color>
+    <color name="pink">#ec407a</color>
+    <color name="lime">#aeea00</color>
+    <color name="red">#ef5350</color>
 </resources>

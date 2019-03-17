@@ -14,10 +14,15 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/ToolbarStyle"
+            android:layout_height="?actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="Мои заметки"
-            app:titleTextColor="@android:color/white" />
+            app:title="@string/notes_fragment_title" />
+
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -27,10 +32,30 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingStart="0dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp"
+        android:paddingEnd="@dimen/default_padding"
+        android:paddingBottom="@dimen/default_padding"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_note" />
+
+    <android.support.design.bottomappbar.BottomAppBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@android:color/transparent"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="auto"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_padding"
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal" />
+    </android.support.design.bottomappbar.BottomAppBar>
 
 </android.support.design.widget.CoordinatorLayout>
