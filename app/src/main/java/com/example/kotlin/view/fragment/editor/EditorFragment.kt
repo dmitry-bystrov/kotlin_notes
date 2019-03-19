@@ -6,13 +6,12 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.text.Editable
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.example.kotlin.R
 import com.example.kotlin.custom.CustomTextWatcher
 import com.example.kotlin.extensions.DATE_TIME_FORMAT
+import com.example.kotlin.extensions.DEFAULT_NOTE_ID
 import com.example.kotlin.extensions.EDITOR_SAVE_DELAY
 import com.example.kotlin.model.entity.Note
 import com.example.kotlin.model.entity.NoteColor
@@ -21,14 +20,17 @@ import kotlinx.android.synthetic.main.layout_editor_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditorFragment : BaseFragment() {
-    companion object {
-        fun newInstance() = EditorFragment()
-    }
+class EditorFragment : BaseFragment<Note?, EditorViewState>() {
 
     private lateinit var toolbar: Toolbar
-    private lateinit var viewModel: EditorViewModel
+
     private lateinit var note: Note
+
+    override val layoutRes: Int = R.layout.layout_editor_fragment
+
+    override val viewModel: EditorViewModel by lazy {
+        ViewModelProviders.of(this).get(EditorViewModel::class.java)
+    }
 
     private val textChangeWatcher = object : CustomTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
@@ -36,38 +38,24 @@ class EditorFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.layout_editor_fragment, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EditorViewModel::class.java)
+        toolbar = view.findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener { Navigation.findNavController(it).popBackStack() }
+
+        et_title.addTextChangedListener(textChangeWatcher)
+        et_content.addTextChangedListener(textChangeWatcher)
 
         arguments?.let {
-            val safeArgs = EditorFragmentArgs.fromBundle(it)
-            viewModel.initNote(safeArgs.noteId)
-        }
-
-        viewModel.observableCurrentNote.value.let {
-            note = it ?: Note()
-            setToolbar(it)
-            updateViewState()
+            val noteId = EditorFragmentArgs.fromBundle(it).noteId
+            if (noteId == DEFAULT_NOTE_ID) renderData(null) else viewModel.loadNote(noteId)
         }
     }
 
-    private fun setToolbar(note: Note?) {
-        toolbar = view!!.findViewById(R.id.toolbar)
-
-        val actionBar = getSupportActionBar(toolbar)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        toolbar.setNavigationOnClickListener { Navigation.findNavController(it).popBackStack() }
-
-        actionBar?.title = if (note != null) {
+    private fun setToolbarTitle(note: Note?) {
+        getSupportActionBar()?.title = if (note != null) {
             SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(note.lastChanged)
         } else {
             getString(R.string.new_note_title)
@@ -90,8 +78,12 @@ class EditorFragment : BaseFragment() {
         }
 
         toolbar_underline.setBackgroundColor(ContextCompat.getColor(getAppCompatActivity(), color))
-        et_title.addTextChangedListener(textChangeWatcher)
-        et_content.addTextChangedListener(textChangeWatcher)
+    }
+
+    override fun renderData(data: Note?) {
+        this.note = data ?: Note()
+        setToolbarTitle(data)
+        updateViewState()
     }
 
     private fun saveChanges() {

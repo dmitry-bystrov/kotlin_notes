@@ -1,20 +1,38 @@
 package com.example.kotlin.view.fragment.notes
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
+import com.example.kotlin.model.api.NoteResult
+import com.example.kotlin.model.api.NoteResult.Error
+import com.example.kotlin.model.api.NoteResult.Success
+import com.example.kotlin.model.entity.Note
 import com.example.kotlin.model.repository.KotlinRepository
 import com.example.kotlin.view.base.BaseViewModel
 
-class NotesViewModel(private val repository: KotlinRepository = KotlinRepository) : BaseViewModel() {
-    private val viewStateLiveData: MutableLiveData<NotesViewState> = MutableLiveData()
+class NotesViewModel(repository: KotlinRepository = KotlinRepository) :
+    BaseViewModel<List<Note>?, NotesViewState>() {
 
-    init {
-        repository.getNotes().observeForever {
-            viewStateLiveData.value =
-                    viewStateLiveData.value?.copy(notes = it!!) ?: NotesViewState(it!!)
+    private val notesObserver = Observer<NoteResult> { t ->
+        t?.let {
+            when (it) {
+                is Success<*> -> {
+                    val checkedList = it.data as? List<*>
+                    viewStateLiveData.value = NotesViewState(notes = checkedList?.filterIsInstance<Note>())
+                }
+                is Error -> {
+                    viewStateLiveData.value = NotesViewState(error = it.error)
+                }
+            }
         }
-
     }
 
-    fun viewState(): LiveData<NotesViewState> = viewStateLiveData
+    private val repositoryNotes = repository.getNotes()
+
+    init {
+        viewStateLiveData.value = NotesViewState()
+        repositoryNotes.observeForever(notesObserver)
+    }
+
+    override fun onCleared() {
+        repositoryNotes.removeObserver(notesObserver)
+    }
 }
