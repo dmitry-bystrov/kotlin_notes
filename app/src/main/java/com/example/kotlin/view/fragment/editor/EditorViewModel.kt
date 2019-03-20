@@ -1,26 +1,35 @@
 package com.example.kotlin.view.fragment.editor
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import com.example.kotlin.model.api.NoteResult
 import com.example.kotlin.model.entity.Note
 import com.example.kotlin.model.repository.KotlinRepository
 import com.example.kotlin.view.base.BaseViewModel
 
-class EditorViewModel(private val repository: KotlinRepository = KotlinRepository) : BaseViewModel() {
-    private val currentNote = MutableLiveData<Note>()
+class EditorViewModel(private val repository: KotlinRepository = KotlinRepository) :
+    BaseViewModel<Note?, EditorViewState>() {
 
-    val observableCurrentNote: LiveData<Note>
-        get() = currentNote
+    private var pendingNote: Note? = null
 
     fun saveChanges(note: Note) {
-        currentNote.value = note
-    }
-
-    fun initNote(id: String) {
-        currentNote.value = repository.getNote(id)
+        pendingNote = note
     }
 
     override fun onCleared() {
-        currentNote.value?.let { repository.saveNote(it) }
+        pendingNote?.let { repository.saveNote(it) }
+    }
+
+    fun loadNote(id: String) {
+        repository.getNote(id).observeForever { t ->
+            t?.let {
+                when (it) {
+                    is NoteResult.Success<*> -> {
+                        viewStateLiveData.value = EditorViewState(note = it.data as? Note)
+                    }
+                    is NoteResult.Error -> {
+                        viewStateLiveData.value = EditorViewState(error = it.error)
+                    }
+                }
+            }
+        }
     }
 }

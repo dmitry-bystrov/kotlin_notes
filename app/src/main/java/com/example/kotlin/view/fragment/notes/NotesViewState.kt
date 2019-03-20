@@ -1,5 +1,6 @@
 package com.example.kotlin.view.fragment.notes
 
 import com.example.kotlin.model.entity.Note
+import com.example.kotlin.view.base.BaseViewState
 
-data class NotesViewState(val notes: List<Note>)
+class NotesViewState(notes: List<Note>? = null, error: Throwable? = null) : BaseViewState<List<Note>?>(notes, error)
