@@ -19,8 +19,9 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
         val view = inflater.inflate(layoutRes, container, false)
 
         viewModel.getViewState().observe(this, Observer<S> { t ->
-            t?.let {
-                it.data?.let { renderData(t.data) } ?: it.error?.let { renderError(t.error!!) }
+            t?.apply {
+                data?.let { renderData(it) }
+                error?.let { renderError(it) }
             }
         })
 
