@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -50,19 +51,27 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:fontFamily="@font/montserrat_semibold"
+                android:inputType="textCapSentences"
                 android:paddingTop="4dp"
                 android:textColor="@android:color/black" />
         </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/et_content"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/il_title"
-            android:layout_marginTop="16dp"
-            android:background="@null"
-            android:hint="@string/note_content_hint"
-            android:textColorHint="@color/hintColor" />
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/note_content_hint"
+                android:inputType="textCapSentences|textMultiLine"
+                android:textColorHint="@color/hintColor"
+                tools:ignore="Autofill" />
+        </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

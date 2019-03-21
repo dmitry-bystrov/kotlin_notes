@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Splash"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".root.MainActivity">
+        <activity
+            android:name=".root.MainActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
