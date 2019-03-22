@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:fontFamily="@font/montserrat_semibold"
-                android:inputType="textCapSentences"
+                android:inputType="textCapSentences|textMultiLine"
                 android:paddingTop="4dp"
                 android:textColor="@android:color/black" />
         </android.support.design.widget.TextInputLayout>
