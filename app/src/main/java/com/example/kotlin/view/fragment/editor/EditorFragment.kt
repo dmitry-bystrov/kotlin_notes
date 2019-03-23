@@ -39,9 +39,7 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar = view.findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { Navigation.findNavController(it).popBackStack() }
+        toolbar_navigation.setOnClickListener { Navigation.findNavController(it).popBackStack() }
 
         et_title.addTextChangedListener(textChangeWatcher)
         et_content.addTextChangedListener(textChangeWatcher)
@@ -53,7 +51,7 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
     }
 
     private fun setToolbarTitle(note: Note?) {
-        getSupportActionBar()?.title = note?.lastChanged?.format() ?: getString(R.string.new_note_title)
+        toolbar_title?.text = note?.lastChanged?.format() ?: getString(R.string.new_note_title)
     }
 
     private fun updateViewState() {

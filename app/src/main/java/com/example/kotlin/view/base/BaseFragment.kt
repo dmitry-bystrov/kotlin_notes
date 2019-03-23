@@ -69,12 +69,4 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
     fun getFragmentContainer() = (activity as IFragmentContainer)
 
     fun getAppCompatActivity() = (activity as AppCompatActivity)
-
-    fun setSupportActionBar(toolbar: Toolbar) {
-        getAppCompatActivity().setSupportActionBar(toolbar)
-    }
-
-    fun getSupportActionBar(): ActionBar? {
-        return getAppCompatActivity().supportActionBar
-    }
 }

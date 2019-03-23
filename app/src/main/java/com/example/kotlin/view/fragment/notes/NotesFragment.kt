@@ -14,6 +14,7 @@ import com.example.kotlin.view.adapter.NotesAdapter
 import com.example.kotlin.view.adapter.NotesViewHolder
 import com.example.kotlin.view.base.BaseFragment
 import com.example.kotlin.view.fragment.notes.NotesFragmentDirections.actionNotesToEditor
+import com.example.kotlin.view.fragment.notes.logout.LogoutDialog
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.layout_notes_fragment.*
 
@@ -28,10 +29,12 @@ class NotesFragment : BaseFragment<List<Note>?, NotesViewState>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
-        setSupportActionBar(toolbar)
-
         fab.setOnClickListener { findNavController(view).navigate(actionNotesToEditor()) }
+        toolbar_action.setOnClickListener {
+            val logoutDialog = LogoutDialog.newInstance()
+            logoutDialog.logoutListener = logoutListener
+            logoutDialog.show(childFragmentManager, logoutDialog.tag)
+        }
 
         adapter = NotesAdapter(object : NotesViewHolder.OnItemClickListener {
             override fun onItemClick(note: Note) {
@@ -44,22 +47,10 @@ class NotesFragment : BaseFragment<List<Note>?, NotesViewState>() {
         rv_notes.adapter = adapter
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        MenuInflater(activity).inflate(R.menu.main, menu).let { true }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.logout -> logout()
-        }
-
-        return false
-    }
-
-    private fun logout() {
-        activity?.let { context ->
+    private val logoutListener = object : LogoutDialog.LogoutListener {
+        override fun onLogout() {
             AuthUI.getInstance()
-                .signOut(context)
+                .signOut(getAppCompatActivity())
                 .addOnCompleteListener {
                     view?.let { view ->
                         Navigation.findNavController(view)

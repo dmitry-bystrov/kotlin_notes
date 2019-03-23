@@ -5,4 +5,8 @@
     <string name="new_note_title">Новая заметка</string>
     <string name="notes_fragment_title">Мои заметки</string>
     <string name="logout_menu_title">Выйти из аккаунта</string>
+    <string name="dialog_logout_title">Выйти из аккаунта?</string>
+    <string name="dialog_logout_description">Все ваши заметки будут сохранены. Вы сможете получить к ним доступ после авторизации.</string>
+    <string name="dialog_logout_confirm">Да, я хочу выйти</string>
+    <string name="dialog_logout_cancel">Отмена</string>
 </resources>
