@@ -1,23 +1,30 @@
 <resources>
 
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash_drawable</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:textViewStyle">@style/AppTextStyle</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
-    <style name="AppTextStyle">
-        <item name="android:textAppearance">@style/AppTextAppearance</item>
-    </style>
-
-    <style name="AppTextAppearance">
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
-    <style name="AppTheme.Splash">
-        <item name="android:windowBackground">@drawable/splash_drawable</item>
+    <style name="AppTheme.Text" parent="@style/TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="AppTheme.Text.Title" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="HintTextStyle">
@@ -27,13 +34,10 @@
 
     <style name="ToolbarStyle">
         <item name="android:background">@color/toolbarColor</item>
-        <item name="android:theme">@style/ToolbarTheme</item>
     </style>
 
-    <style name="ToolbarTheme">
-        <item name="android:textColorPrimary">@color/textColor</item>
-        <item name="android:textColorSecondary">@color/textColor</item>
-        <item name="android:fontFamily">@font/montserrat_medium</item>
+    <style name="ToolbarTitle">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">20sp</item>
     </style>
-
 </resources>

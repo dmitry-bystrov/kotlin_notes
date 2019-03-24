@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/AppTheme.Text.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/tv_content"
-            style="@style/TextAppearance.AppCompat"
+            style="@style/AppTheme.Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
