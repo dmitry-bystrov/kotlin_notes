@@ -3,7 +3,7 @@ package com.example.kotlin.custom
 import android.text.Editable
 import android.text.TextWatcher
 
-open class CustomTextWatcher : TextWatcher {
+open class SimpleTextWatcher : TextWatcher {
     override fun afterTextChanged(s: Editable?) {
     }
 

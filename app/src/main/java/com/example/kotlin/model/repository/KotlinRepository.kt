@@ -11,4 +11,5 @@ object KotlinRepository {
     fun getNotes() = dataProvider.subscribeToNotes()
     fun saveNote(note: Note) = dataProvider.saveNote(note)
     fun getNote(id: String) = dataProvider.getNote(id)
+    fun deleteNote(id: String) = dataProvider.deleteNote(id)
 }

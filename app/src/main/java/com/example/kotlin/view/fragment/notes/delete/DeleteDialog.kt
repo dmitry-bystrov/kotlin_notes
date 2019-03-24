@@ -1,4 +1,4 @@
-package com.example.kotlin.view.fragment.notes.logout
+package com.example.kotlin.view.fragment.notes.delete
 
 import android.os.Bundle
 import android.view.View
@@ -6,26 +6,26 @@ import com.example.kotlin.R
 import com.example.kotlin.view.base.BaseBottomDialog
 import kotlinx.android.synthetic.main.dialog_logout.*
 
-class LogoutDialog : BaseBottomDialog() {
+class DeleteDialog : BaseBottomDialog() {
     companion object {
-        fun newInstance() = LogoutDialog()
+        fun newInstance() = DeleteDialog()
     }
 
-    var logoutListener: LogoutListener? = null
+    var deleteListener: DeleteListener? = null
 
-    override val layoutRes: Int = R.layout.dialog_logout
+    override val layoutRes: Int = R.layout.dialog_delete
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         logout_button.setOnClickListener {
-            logoutListener?.onLogout()
+            deleteListener?.onDelete()
             dismiss()
         }
         cancel_button.setOnClickListener { dismiss() }
     }
 
-    interface LogoutListener {
-        fun onLogout()
+    interface DeleteListener {
+        fun onDelete()
     }
 }

@@ -8,7 +8,7 @@ import android.text.Editable
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.kotlin.R
-import com.example.kotlin.custom.CustomTextWatcher
+import com.example.kotlin.custom.SimpleTextWatcher
 import com.example.kotlin.extensions.DEFAULT_NOTE_ID
 import com.example.kotlin.extensions.EDITOR_SAVE_DELAY
 import com.example.kotlin.extensions.format
@@ -30,7 +30,7 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
         ViewModelProviders.of(this).get(EditorViewModel::class.java)
     }
 
-    private val textChangeWatcher = object : CustomTextWatcher() {
+    private val textChangeWatcher = object : SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
             saveChanges()
         }
@@ -71,8 +71,8 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
 
         Handler().postDelayed({
             note = note.copy(
-                title = et_title.text.toString(),
-                content = et_content.text.toString(),
+                title = et_title?.text.toString(),
+                content = et_content?.text.toString(),
                 lastChanged = Date()
             )
 

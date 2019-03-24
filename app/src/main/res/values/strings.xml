@@ -9,4 +9,7 @@
     <string name="dialog_logout_description">Все ваши заметки будут сохранены. Вы сможете получить к ним доступ после авторизации.</string>
     <string name="dialog_logout_confirm">Да, я хочу выйти</string>
     <string name="dialog_logout_cancel">Отмена</string>
+    <string name="dialog_delete_question">Вы действительно хотите удалить заметку?</string>
+    <string name="dialog_delete_confirm">Да, я хочу её удалить</string>
+    <string name="delete_note_success">Заметка успешно удалена</string>
 </resources>

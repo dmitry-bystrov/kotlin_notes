@@ -1,5 +1,7 @@
 package com.example.kotlin.view.fragment.notes
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.example.kotlin.model.api.NoteResult
 import com.example.kotlin.model.api.NoteResult.Error
@@ -8,8 +10,13 @@ import com.example.kotlin.model.entity.Note
 import com.example.kotlin.model.repository.KotlinRepository
 import com.example.kotlin.view.base.BaseViewModel
 
-class NotesViewModel(repository: KotlinRepository = KotlinRepository) :
+class NotesViewModel(private val repository: KotlinRepository = KotlinRepository) :
     BaseViewModel<List<Note>?, NotesViewState>() {
+
+    private val deleteStatus = MutableLiveData<Boolean>()
+
+    val observableDeleteStatus: LiveData<Boolean>
+        get() = deleteStatus
 
     private val notesObserver = Observer<NoteResult> { t ->
         t?.let {
@@ -30,6 +37,25 @@ class NotesViewModel(repository: KotlinRepository = KotlinRepository) :
     init {
         viewStateLiveData.value = NotesViewState()
         repositoryNotes.observeForever(notesObserver)
+    }
+
+    fun clearDeleteStatus() {
+        deleteStatus.value = null
+    }
+
+    fun deleteNote(id: String) {
+        repository.deleteNote(id).observeForever { t ->
+            t?.let {
+                when (it) {
+                    is NoteResult.Success<*> -> {
+                        deleteStatus.value = true
+                    }
+                    is NoteResult.Error -> {
+                        deleteStatus.value = null
+                    }
+                }
+            }
+        }
     }
 
     override fun onCleared() {
