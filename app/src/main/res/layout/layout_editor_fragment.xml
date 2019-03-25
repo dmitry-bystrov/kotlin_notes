@@ -10,7 +10,9 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -71,6 +73,18 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/colorPrimary" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <com.example.kotlin.custom.CustomColorPicker
+                android:id="@+id/color_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize" />
+
+        </HorizontalScrollView>
 
     </android.support.design.widget.AppBarLayout>
 
