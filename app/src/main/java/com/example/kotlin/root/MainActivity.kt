@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.kotlin.R
 import com.example.kotlin.custom.SimpleAnimatorListener
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), IFragmentContainer {
@@ -23,6 +24,10 @@ class MainActivity : AppCompatActivity(), IFragmentContainer {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun showLoadingSpinner(show: Boolean) {
+        progressbar_view.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun showSuccessMessage(message: String) {

@@ -20,6 +20,7 @@ class NotesViewModel(private val repository: KotlinRepository = KotlinRepository
 
     private val notesObserver = Observer<NoteResult> { t ->
         t?.let {
+            dataIsLoading.value = false
             when (it) {
                 is Success<*> -> {
                     val checkedList = it.data as? List<*>
@@ -36,6 +37,7 @@ class NotesViewModel(private val repository: KotlinRepository = KotlinRepository
 
     init {
         viewStateLiveData.value = NotesViewState()
+        dataIsLoading.value = true
         repositoryNotes.observeForever(notesObserver)
     }
 
@@ -44,8 +46,10 @@ class NotesViewModel(private val repository: KotlinRepository = KotlinRepository
     }
 
     fun deleteNote(id: String) {
+        dataIsLoading.value = true
         repository.deleteNote(id).observeForever { t ->
             t?.let {
+                dataIsLoading.value = false
                 when (it) {
                     is NoteResult.Success<*> -> {
                         deleteStatus.value = true
