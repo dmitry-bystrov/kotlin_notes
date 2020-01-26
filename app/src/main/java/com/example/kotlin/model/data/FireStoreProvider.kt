@@ -65,4 +65,15 @@ class FireStoreProvider : DataProvider {
                 value = NoteResult.Error(e)
             }
         }
+
+    override fun deleteNote(id: String): LiveData<NoteResult> =
+        MutableLiveData<NoteResult>().apply {
+            try {
+                getUserNotesCollection().document(id).delete()
+                    .addOnSuccessListener { value = NoteResult.Success(null) }
+                    .addOnFailureListener { throw it }
+            } catch (e: Throwable) {
+                value = NoteResult.Error(e)
+            }
+        }
 }

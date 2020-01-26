@@ -19,8 +19,10 @@ class EditorViewModel(private val repository: KotlinRepository = KotlinRepositor
     }
 
     fun loadNote(id: String) {
+        dataIsLoading.value = true
         repository.getNote(id).observeForever { t ->
             t?.let {
+                dataIsLoading.value = false
                 when (it) {
                     is NoteResult.Success<*> -> {
                         viewStateLiveData.value = EditorViewState(note = it.data as? Note)

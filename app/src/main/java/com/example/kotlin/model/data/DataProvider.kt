@@ -10,4 +10,5 @@ interface DataProvider {
     fun subscribeToNotes(): LiveData<NoteResult>
     fun getNote(id: String): LiveData<NoteResult>
     fun saveNote(note: Note): LiveData<NoteResult>
+    fun deleteNote(id: String): LiveData<NoteResult>
 }

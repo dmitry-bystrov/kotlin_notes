@@ -32,6 +32,12 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : androidx.fragment.app.Fra
             }
         })
 
+        viewModel.getLoadingState().observe(this, Observer {
+            it?.let { loadingState ->
+                getFragmentContainer().showLoadingSpinner(loadingState)
+            }
+        })
+
         return view
     }
 

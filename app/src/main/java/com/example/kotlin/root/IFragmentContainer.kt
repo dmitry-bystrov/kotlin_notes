@@ -6,4 +6,6 @@ interface IFragmentContainer {
     fun showErrorMessage(message: String)
 
     fun showErrorMessage(error: Throwable)
+
+    fun showLoadingSpinner(show: Boolean)
 }
