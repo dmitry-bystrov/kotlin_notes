@@ -1,11 +1,8 @@
 package com.example.kotlin.view.fragment.notes
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import com.example.kotlin.R
@@ -24,7 +21,7 @@ class NotesFragment : BaseFragment<List<Note>?, NotesViewState>() {
     override val layoutRes: Int = R.layout.layout_notes_fragment
 
     override val viewModel: NotesViewModel by lazy {
-        ViewModelProviders.of(this).get(NotesViewModel::class.java)
+        ViewModelProvider(this).get(NotesViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

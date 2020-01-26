@@ -1,13 +1,13 @@
 package com.example.kotlin.view.base
 
 import android.app.Activity
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +18,7 @@ import com.firebase.ui.auth.AuthUI
 
 private const val RC_SIGN_IN = 458
 
-abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
+abstract class BaseFragment<T, S : BaseViewState<T>> : androidx.fragment.app.Fragment() {
     abstract val viewModel: BaseViewModel<T, S>
     abstract val layoutRes: Int
 

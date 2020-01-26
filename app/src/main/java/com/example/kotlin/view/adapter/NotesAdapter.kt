@@ -1,13 +1,13 @@
 package com.example.kotlin.view.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.kotlin.R
 import com.example.kotlin.model.entity.Note
 
 class NotesAdapter(private val clickListener: NotesViewHolder.OnItemClickListener) :
-    RecyclerView.Adapter<NotesViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<NotesViewHolder>() {
 
     var notes: List<Note> = listOf()
         set(value) {

@@ -1,11 +1,11 @@
 package com.example.kotlin.view.fragment.editor
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.kotlin.R
 import com.example.kotlin.custom.CustomTextWatcher
@@ -27,7 +27,7 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
     override val layoutRes: Int = R.layout.layout_editor_fragment
 
     override val viewModel: EditorViewModel by lazy {
-        ViewModelProviders.of(this).get(EditorViewModel::class.java)
+        ViewModelProvider(this).get(EditorViewModel::class.java)
     }
 
     private val textChangeWatcher = object : CustomTextWatcher() {

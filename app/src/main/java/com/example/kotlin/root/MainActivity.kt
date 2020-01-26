@@ -2,10 +2,10 @@ package com.example.kotlin.root
 
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.ColorRes
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.ColorRes
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.example.kotlin.R
 import kotlinx.android.synthetic.main.activity_main.*

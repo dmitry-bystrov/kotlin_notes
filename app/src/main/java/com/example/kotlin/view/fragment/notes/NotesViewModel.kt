@@ -1,6 +1,6 @@
 package com.example.kotlin.view.fragment.notes
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.example.kotlin.model.api.NoteResult
 import com.example.kotlin.model.api.NoteResult.Error
 import com.example.kotlin.model.api.NoteResult.Success
