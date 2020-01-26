@@ -1,8 +1,8 @@
 package com.example.kotlin.view.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.R
 import com.example.kotlin.extensions.getColorInt
 import com.example.kotlin.model.entity.Note
@@ -10,7 +10,7 @@ import com.example.kotlin.model.entity.Note
 class NotesViewHolder(
     itemView: View,
     private val clickListener: OnItemClickListener
-) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView) {
 
     private val colorLine = itemView.findViewById<View>(R.id.v_color_line)
     private val titleView = itemView.findViewById<TextView>(R.id.tv_title)

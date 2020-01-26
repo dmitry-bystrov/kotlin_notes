@@ -5,16 +5,17 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import android.support.annotation.DrawableRes
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
-import android.support.v7.widget.helper.ItemTouchHelper.*
 import android.util.TypedValue
 import android.view.MotionEvent
+import androidx.annotation.DrawableRes
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
+import androidx.recyclerview.widget.ItemTouchHelper.LEFT
+import androidx.recyclerview.widget.RecyclerView
 
 private const val DEFAULT_MARGIN = 12
 
-class SwipeToButtonCallback(@DrawableRes buttonDrawableRes: Int, context: Context) : Callback() {
+class SwipeToButtonCallback(@DrawableRes buttonDrawableRes: Int, context: Context) : ItemTouchHelper.Callback() {
     private val buttonLeftMargin: Int
     private var swipeBack: Boolean = false
     private var buttonShowed: Boolean = false
@@ -38,7 +39,7 @@ class SwipeToButtonCallback(@DrawableRes buttonDrawableRes: Int, context: Contex
     }
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        return ItemTouchHelper.Callback.makeMovementFlags(0, LEFT)
+        return makeMovementFlags(0, LEFT)
     }
 
     override fun onMove(p0: RecyclerView, p1: RecyclerView.ViewHolder, p2: RecyclerView.ViewHolder): Boolean {
@@ -67,7 +68,7 @@ class SwipeToButtonCallback(@DrawableRes buttonDrawableRes: Int, context: Contex
     ) {
         if (actionState == ACTION_STATE_SWIPE) {
             if (buttonShowed) {
-                val dXShowed = Math.min(dX, (-1 * buttonWidth).toFloat())
+                val dXShowed = dX.coerceAtMost((-1 * buttonWidth).toFloat())
                 super.onChildDraw(c, recyclerView, viewHolder, dXShowed, dY, actionState, isCurrentlyActive)
             } else {
                 setTouchListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
@@ -117,7 +118,7 @@ class SwipeToButtonCallback(@DrawableRes buttonDrawableRes: Int, context: Contex
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        recyclerView.setOnTouchListener { v, event ->
+        recyclerView.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 setTouchUpListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
@@ -126,6 +127,7 @@ class SwipeToButtonCallback(@DrawableRes buttonDrawableRes: Int, context: Contex
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     @SuppressLint("ClickableViewAccessibility")
     private fun setTouchUpListener(
         c: Canvas,

@@ -1,12 +1,9 @@
 package com.example.kotlin.model.repository
 
 import com.example.kotlin.model.data.DataProvider
-import com.example.kotlin.model.data.FireStoreProvider
 import com.example.kotlin.model.entity.Note
 
-object KotlinRepository {
-    private val dataProvider: DataProvider = FireStoreProvider()
-
+class Repository(private val dataProvider: DataProvider) {
     fun getCurrentUser() = dataProvider.getCurrentUser()
     fun getNotes() = dataProvider.subscribeToNotes()
     fun saveNote(note: Note) = dataProvider.saveNote(note)

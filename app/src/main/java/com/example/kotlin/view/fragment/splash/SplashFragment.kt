@@ -1,20 +1,17 @@
 package com.example.kotlin.view.fragment.splash
 
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kotlin.R
 import com.example.kotlin.view.base.BaseFragment
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SplashFragment : BaseFragment<Boolean?, SplashViewState>() {
     override val layoutRes: Int = R.layout.layout_splash_fragment
-
-    override val viewModel: SplashViewModel by lazy {
-        ViewModelProvider(this).get(SplashViewModel::class.java)
-    }
+    override val mModel: SplashViewModel by viewModel()
 
     override fun onResume() {
         super.onResume()
-        viewModel.requestUser()
+        mModel.requestUser()
     }
 
     override fun renderData(data: Boolean?) {

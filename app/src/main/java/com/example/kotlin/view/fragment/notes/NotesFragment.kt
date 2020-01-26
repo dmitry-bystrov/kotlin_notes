@@ -3,9 +3,11 @@ package com.example.kotlin.view.fragment.notes
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.R
 import com.example.kotlin.model.entity.Note
 import com.example.kotlin.view.adapter.NotesAdapter
@@ -17,15 +19,13 @@ import com.example.kotlin.view.fragment.notes.delete.DeleteDialog
 import com.example.kotlin.view.fragment.notes.logout.LogoutDialog
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.layout_notes_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class NotesFragment : BaseFragment<List<Note>?, NotesViewState>() {
     private lateinit var adapter: NotesAdapter
 
     override val layoutRes: Int = R.layout.layout_notes_fragment
-
-    override val viewModel: NotesViewModel by lazy {
-        ViewModelProvider(this).get(NotesViewModel::class.java)
-    }
+    override val mModel: NotesViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,10 +58,10 @@ class NotesFragment : BaseFragment<List<Note>?, NotesViewState>() {
             }
         })
 
-        viewModel.observableDeleteStatus.observe(this, Observer {
+        mModel.observableDeleteStatus.observe(this, Observer {
             it?.let {
                 getFragmentContainer().showSuccessMessage(getString(R.string.delete_note_success))
-                viewModel.clearDeleteStatus()
+                mModel.clearDeleteStatus()
             }
         })
     }
@@ -71,10 +71,7 @@ class NotesFragment : BaseFragment<List<Note>?, NotesViewState>() {
             AuthUI.getInstance()
                 .signOut(getAppCompatActivity())
                 .addOnCompleteListener {
-                    view?.let { view ->
-                        Navigation.findNavController(view)
-                            .navigate(NotesFragmentDirections.actionNotesToSplash())
-                    }
+                    findNavController().navigate(NotesFragmentDirections.actionNotesToSplash())
                 }
         }
     }
@@ -84,7 +81,7 @@ class NotesFragment : BaseFragment<List<Note>?, NotesViewState>() {
             val deleteDialog = DeleteDialog.newInstance()
             deleteDialog.deleteListener = object : DeleteDialog.DeleteListener {
                 override fun onDelete() {
-                    viewModel.deleteNote(adapter.notes[position].id)
+                    mModel.deleteNote(adapter.notes[position].id)
                 }
             }
 

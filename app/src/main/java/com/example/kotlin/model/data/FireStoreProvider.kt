@@ -12,11 +12,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 private const val USERS_COLLECTION = "users"
 private const val NOTES_COLLECTION = "notes"
 
-class FireStoreProvider : DataProvider {
-    private val db = FirebaseFirestore.getInstance()
-
+class FireStoreProvider(private val firebaseAuth: FirebaseAuth,
+                        private val db: FirebaseFirestore) : DataProvider {
     private val currentUser
-        get() = FirebaseAuth.getInstance().currentUser
+        get() = firebaseAuth.currentUser
 
     override fun getCurrentUser(): LiveData<User?> =
         MutableLiveData<User?>().apply {

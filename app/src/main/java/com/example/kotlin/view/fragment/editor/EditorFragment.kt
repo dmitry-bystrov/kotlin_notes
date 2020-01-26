@@ -5,7 +5,6 @@ import android.os.Handler
 import android.text.Editable
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.kotlin.R
 import com.example.kotlin.custom.SimpleTextWatcher
@@ -17,21 +16,17 @@ import com.example.kotlin.model.entity.Note
 import com.example.kotlin.model.entity.NoteColor
 import com.example.kotlin.view.base.BaseFragment
 import kotlinx.android.synthetic.main.layout_editor_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class EditorFragment : BaseFragment<Note?, EditorViewState>() {
 
     private lateinit var toolbar: Toolbar
-
-    private lateinit var note: Note
-
+    private var currentNote = Note()
     private var noteColor = NoteColor.ORANGE
 
     override val layoutRes: Int = R.layout.layout_editor_fragment
-
-    override val viewModel: EditorViewModel by lazy {
-        ViewModelProvider(this).get(EditorViewModel::class.java)
-    }
+    override val mModel: EditorViewModel by viewModel()
 
     private val textChangeWatcher = object : SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
@@ -53,7 +48,7 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
 
         arguments?.let {
             val noteId = EditorFragmentArgs.fromBundle(it).noteId
-            if (noteId == DEFAULT_NOTE_ID) renderData(null) else viewModel.loadNote(noteId)
+            if (noteId == DEFAULT_NOTE_ID) renderData(null) else mModel.loadNote(noteId)
         }
 
         color_picker.onColorClickListener = {
@@ -61,6 +56,8 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
             setToolbarColor(it)
             saveChanges()
         }
+
+        setEditListener()
     }
 
     private fun setEditListener() {
@@ -73,15 +70,18 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
         et_content.removeTextChangedListener(textChangeWatcher)
     }
 
-    private fun setToolbarTitle(note: Note?) {
-        toolbar_title?.text = note?.lastChanged?.format() ?: getString(R.string.new_note_title)
+    private fun setToolbarTitle() {
+        toolbar_title?.text = when {
+            currentNote.content.isNotEmpty() -> currentNote.lastChanged.format()
+            else -> getString(R.string.new_note_title)
+        }
     }
 
     private fun updateViewState() {
         removeEditListener()
-        et_title.setText(note.title)
-        et_content.setText(note.content)
-        setToolbarColor(note.color)
+        et_title.setText(currentNote.title)
+        et_content.setText(currentNote.content)
+        setToolbarColor(currentNote.color)
         setEditListener()
     }
 
@@ -90,23 +90,25 @@ class EditorFragment : BaseFragment<Note?, EditorViewState>() {
     }
 
     override fun renderData(data: Note?) {
-        this.note = data ?: Note()
-        setToolbarTitle(data)
-        updateViewState()
+        if (currentNote.title.isEmpty() && currentNote.content.isEmpty() && data != null) {
+            currentNote = data
+            setToolbarTitle()
+            updateViewState()
+        }
     }
 
     private fun saveChanges() {
         if (et_title.text.isNullOrBlank() || et_title.text!!.length < 3) return
 
         Handler().postDelayed({
-            note = note.copy(
+            currentNote = currentNote.copy(
                 title = et_title?.text.toString(),
                 content = et_content?.text.toString(),
                 color = noteColor,
                 lastChanged = Date()
             )
 
-            viewModel.saveChanges(note)
+            mModel.saveChanges(currentNote)
 
         }, EDITOR_SAVE_DELAY)
     }

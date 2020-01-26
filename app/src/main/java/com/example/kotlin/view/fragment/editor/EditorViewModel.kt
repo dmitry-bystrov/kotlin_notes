@@ -2,20 +2,20 @@ package com.example.kotlin.view.fragment.editor
 
 import com.example.kotlin.model.api.NoteResult
 import com.example.kotlin.model.entity.Note
-import com.example.kotlin.model.repository.KotlinRepository
+import com.example.kotlin.model.repository.Repository
 import com.example.kotlin.view.base.BaseViewModel
 
-class EditorViewModel(private val repository: KotlinRepository = KotlinRepository) :
+class EditorViewModel(private val repository: Repository) :
     BaseViewModel<Note?, EditorViewState>() {
 
-    private var pendingNote: Note? = null
-
     fun saveChanges(note: Note) {
-        pendingNote = note
+        viewStateLiveData.value = EditorViewState(note = note)
     }
 
     override fun onCleared() {
-        pendingNote?.let { repository.saveNote(it) }
+        viewStateLiveData.value?.data?.let {
+            repository.saveNote(it)
+        }
     }
 
     fun loadNote(id: String) {

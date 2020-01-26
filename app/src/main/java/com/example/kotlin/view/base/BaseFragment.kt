@@ -4,10 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,20 +16,20 @@ import com.firebase.ui.auth.AuthUI
 private const val RC_SIGN_IN = 458
 
 abstract class BaseFragment<T, S : BaseViewState<T>> : androidx.fragment.app.Fragment() {
-    abstract val viewModel: BaseViewModel<T, S>
+    abstract val mModel: BaseViewModel<T, S>
     abstract val layoutRes: Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layoutRes, container, false)
 
-        viewModel.getViewState().observe(this, Observer<S> { t ->
+        mModel.getViewState().observe(this, Observer<S> { t ->
             t?.apply {
                 data?.let { renderData(it) }
                 error?.let { renderError(it) }
             }
         })
 
-        viewModel.getLoadingState().observe(this, Observer {
+        mModel.getLoadingState().observe(this, Observer {
             it?.let { loadingState ->
                 getFragmentContainer().showLoadingSpinner(loadingState)
             }

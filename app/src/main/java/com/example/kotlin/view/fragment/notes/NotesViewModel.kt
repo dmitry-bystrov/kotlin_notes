@@ -1,14 +1,16 @@
 package com.example.kotlin.view.fragment.notes
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.kotlin.model.api.NoteResult
 import com.example.kotlin.model.api.NoteResult.Error
 import com.example.kotlin.model.api.NoteResult.Success
 import com.example.kotlin.model.entity.Note
-import com.example.kotlin.model.repository.KotlinRepository
+import com.example.kotlin.model.repository.Repository
 import com.example.kotlin.view.base.BaseViewModel
 
-class NotesViewModel(private val repository: KotlinRepository = KotlinRepository) :
+class NotesViewModel(private val repository: Repository) :
     BaseViewModel<List<Note>?, NotesViewState>() {
 
     private val deleteStatus = MutableLiveData<Boolean>()
@@ -22,7 +24,8 @@ class NotesViewModel(private val repository: KotlinRepository = KotlinRepository
             when (it) {
                 is Success<*> -> {
                     val checkedList = it.data as? List<*>
-                    viewStateLiveData.value = NotesViewState(notes = checkedList?.filterIsInstance<Note>())
+                    viewStateLiveData.value =
+                        NotesViewState(notes = checkedList?.filterIsInstance<Note>())
                 }
                 is Error -> {
                     viewStateLiveData.value = NotesViewState(error = it.error)
