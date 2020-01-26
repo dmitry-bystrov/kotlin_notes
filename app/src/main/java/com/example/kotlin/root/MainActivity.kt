@@ -3,10 +3,10 @@ package com.example.kotlin.root
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.support.annotation.ColorRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView

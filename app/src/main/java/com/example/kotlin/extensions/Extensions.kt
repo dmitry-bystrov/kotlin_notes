@@ -1,7 +1,7 @@
 package com.example.kotlin.extensions
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.example.kotlin.R
 import com.example.kotlin.model.entity.NoteColor
 import java.text.SimpleDateFormat

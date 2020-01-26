@@ -1,16 +1,15 @@
 package com.example.kotlin.view.fragment.splash
 
-import android.arch.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.kotlin.R
 import com.example.kotlin.view.base.BaseFragment
 
 class SplashFragment : BaseFragment<Boolean?, SplashViewState>() {
-
     override val layoutRes: Int = R.layout.layout_splash_fragment
 
     override val viewModel: SplashViewModel by lazy {
-        ViewModelProviders.of(this).get(SplashViewModel::class.java)
+        ViewModelProvider(this).get(SplashViewModel::class.java)
     }
 
     override fun onResume() {
@@ -23,6 +22,8 @@ class SplashFragment : BaseFragment<Boolean?, SplashViewState>() {
     }
 
     private fun navigateToNotes() {
-        view?.let { Navigation.findNavController(it).navigate(SplashFragmentDirections.actionSplashToNotes()) }
+        view?.let {
+            findNavController().navigate(SplashFragmentDirections.actionSplashToNotes())
+        }
     }
 }
